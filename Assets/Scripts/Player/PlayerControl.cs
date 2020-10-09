@@ -10,10 +10,12 @@ public class PlayerControl : MonoBehaviour
     public AudioClip explosivePlayerAudioClip;
     public GameObject meshPlayer;
     public Image[] lives;
+    public int livesOfShip = 3;
 
     private Rigidbody rigidbody;
     private float torqueInput;
     private float trottleInput;
+    private float mouseTrottleInput;
 
     private static int numberOfLives = 3;
 
@@ -23,11 +25,12 @@ public class PlayerControl : MonoBehaviour
     private static float timeVulnerability = 3f; // время неуязвимости
     private BoxCollider box;
 
+    private bool mouseDown = false;
+
     void Start()
     {
         rigidbody = GetComponent<Rigidbody>();
         box = gameObject.GetComponent<BoxCollider>();
-
     }
 
     void Update()
@@ -35,25 +38,48 @@ public class PlayerControl : MonoBehaviour
         if (GameHelper.isChangeSetting)
         {
             torqueInput = Input.GetAxisRaw("Horizontal");
-
+            mouseTrottleInput = trottleInput;
         } else
         {
             gameObject.transform.rotation = Quaternion.Lerp(gameObject.transform.rotation, playerMouseRotation(), speedTurn * 0.01f);
-
+            if (Input.GetMouseButton(1))
+            {
+                mouseTrottleInput = 1f;
+                mouseDown = true;
+            }
+            else if (Input.GetMouseButtonUp(1))
+            {
+                mouseTrottleInput = 0;
+                mouseDown = false;
+            }
         }
-        trottleInput = Input.GetAxisRaw("Vertical");
-        trottleInput = Mathf.Clamp(trottleInput, 0, 1);
+        if (!mouseDown)
+        {
+            trottleInput = Input.GetAxisRaw("Vertical");
+            trottleInput = Mathf.Clamp(trottleInput, 0, 1);
+            mouseTrottleInput = 1f;
+        }
+        else
+        {
+            trottleInput = 1f;
+        }
+        
+
+        mouseTrottleInput = Mathf.Clamp(mouseTrottleInput, 0, 1);
+        Debug.Log(mouseTrottleInput);
 
         changeLivePlayer();
         changeLiveImage();
 
         vulnerability();
+
     }
 
     private void vulnerability()
     {
         if (GameHelper.isFirstStartPlayer)
         {
+            numberOfLives = livesOfShip;
             if (box != null)
             {
                 box.enabled = false;
@@ -77,8 +103,8 @@ public class PlayerControl : MonoBehaviour
         if (numberOfLives <= 0)
         {
             GameHelper.restartGame();
-            numberOfLives = lives.Length;
             SceneManager.LoadScene("Game");
+            numberOfLives = livesOfShip;
         }
     }
 
@@ -99,7 +125,6 @@ public class PlayerControl : MonoBehaviour
     {
         if (Time.time > timeVulnerability)
         {
-            Debug.Log(Time.time);
             if (box != null)
             {
                 box.enabled = true;
@@ -123,7 +148,7 @@ public class PlayerControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        rigidbody.AddRelativeForce(Vector3.forward * trottleInput * speedPlayer, ForceMode.Force);
+        rigidbody.AddRelativeForce(Vector3.forward * trottleInput * mouseTrottleInput * speedPlayer, ForceMode.Force);
         rigidbody.AddTorque(Vector3.up * torqueInput * speedTurn, ForceMode.Force);
     }
 

@@ -13,8 +13,15 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
+        
+
         if (GameHelper.isFirstStartMenu)
         {
+            if (PlayerPrefs.HasKey("Save"))
+                if (PlayerPrefs.GetInt("Save") == 0)
+                    GameHelper.isChangeSetting = true;
+                else
+                    GameHelper.isChangeSetting = false;
             Pause();
             buttons = FindObjectsOfType<Button>();
             changeButton("Resume", false);
@@ -48,8 +55,7 @@ public class UIManager : MonoBehaviour
         }
     }
     void Pause()
-    {   
-
+    {
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameHelper.isPausedGame = true;
@@ -66,19 +72,21 @@ public class UIManager : MonoBehaviour
     {
         Application.Quit();
     }
-    
+
     public void NewGame()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameHelper.isPausedGame = false;
         GameHelper.isFirstStartMenu = false;
+        GameHelper.isFirstStartPlayer = true;
         SceneManager.LoadScene("Game");
     }
 
     public void Setting()
     {
         GameHelper.isChangeSetting = !GameHelper.isChangeSetting;
+        SetQuality();
     }
 
     private void changeButton(string name, bool change)
@@ -90,5 +98,14 @@ public class UIManager : MonoBehaviour
                 item.interactable = change;
             }
         }
+    }
+    public void SetQuality()
+    {
+        int save;
+        if (GameHelper.isChangeSetting)
+            save = 0;
+        else
+            save = 1;
+        PlayerPrefs.SetInt("Save", save);
     }
 }

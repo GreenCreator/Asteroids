@@ -18,6 +18,11 @@ public class EnemyFire : MonoBehaviour
 
     void Update()
     {
+        if (player == null)
+        {
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+
         timer += Time.deltaTime;
         if (timer >= Random.Range(timeShotsMin, timeShotsMax))
         { 
@@ -35,7 +40,6 @@ public class EnemyFire : MonoBehaviour
     private Vector3 Aim()
     {
         var direction = player.transform.position - transform.position;
-        return Quaternion.AngleAxis(Random.Range(-angleOffset, angleOffset), Vector3.up) * direction;
+            return Quaternion.AngleAxis(Random.Range(-angleOffset, angleOffset), Vector3.up) * direction;
     }
-    
 }

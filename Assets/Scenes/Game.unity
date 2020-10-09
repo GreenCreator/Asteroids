@@ -1720,6 +1720,7 @@ MonoBehaviour:
   - {fileID: 1659724233}
   - {fileID: 1288486236}
   - {fileID: 1001416447}
+  livesOfShip: 3
 --- !u!54 &1115675114
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1770,8 +1771,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -303, y: 199}
-  m_SizeDelta: {x: 160, y: 36.1}
+  m_AnchoredPosition: {x: -230.2, y: 199}
+  m_SizeDelta: {x: 317.7, y: 36.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1185169343
 MonoBehaviour:
@@ -2313,12 +2314,12 @@ PrefabInstance:
     - target: {fileID: 58282198044730848, guid: 2f473151247f7ae4586f1e61420ee6fa,
         type: 3}
       propertyPath: speedPlayer
-      value: 5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 58282198044730848, guid: 2f473151247f7ae4586f1e61420ee6fa,
         type: 3}
       propertyPath: speedTurn
-      value: 10
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 58282198044730848, guid: 2f473151247f7ae4586f1e61420ee6fa,
         type: 3}

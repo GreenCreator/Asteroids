@@ -19,7 +19,7 @@ public class PlayerFire : MonoBehaviour
             }
             else
             {
-                if (Input.GetMouseButtonDown(0))
+                if (Input.GetButtonDown("Jump") || Input.GetMouseButtonDown(0))
                 {
                     firePlayer();
                 }
