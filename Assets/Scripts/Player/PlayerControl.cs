@@ -63,10 +63,8 @@ public class PlayerControl : MonoBehaviour
         {
             trottleInput = 1f;
         }
-        
 
         mouseTrottleInput = Mathf.Clamp(mouseTrottleInput, 0, 1);
-        Debug.Log(mouseTrottleInput);
 
         changeLivePlayer();
         changeLiveImage();

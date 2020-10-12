@@ -108,4 +108,9 @@ public class UIManager : MonoBehaviour
             save = 1;
         PlayerPrefs.SetInt("Save", save);
     }
+
+    public void ChangeAngle()
+    {
+        GameHelper.changeAngle = GameHelper.changeAngle == 45 ? 75 : 45;
+    }
 }

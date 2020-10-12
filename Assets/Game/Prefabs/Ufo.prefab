@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89df2edfd51c29646ae854a3087f0cb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speedUfo: 2
+  speedUfo: 5
   explosiveUfoAudioClip: {fileID: 8300000, guid: 1e294422e45dc0f4e81e2fa45b822113,
     type: 3}
   gameController: {fileID: 0}

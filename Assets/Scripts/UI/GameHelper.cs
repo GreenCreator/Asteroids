@@ -6,6 +6,8 @@
     public static bool isChangeSetting = true;
     public static bool isPausedGame = false;
 
+    public static double changeAngle = 45;
+
 
     public static void restartGame()
     {
